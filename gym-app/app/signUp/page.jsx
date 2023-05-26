@@ -5,7 +5,7 @@ const SignUp = () => {
     const API_URL = process.env.API_KEY;
 
     async function sendUser(userData) {
-        const res = await fetch(`http://localhost:8080/api/users`, {
+        const res = await fetch(`${API_URL}/api/users`, {
           method: 'POST',
           headers: new Headers({ 'Content-Type': 'application/json' }),
           body: JSON.stringify(userData)

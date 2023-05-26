@@ -3,9 +3,10 @@
 
 const Login = () => {
   const API_URL = process.env.API_KEY;
+  console.log(API_URL)
 
   async function login(email, password) {
-    const res = await fetch(`http://localhost:8080/auth/local/login`, {
+    const res = await fetch(`${API_URL}/auth/local/login`, {
       method: 'POST',
       headers: new Headers({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({ email, password })
