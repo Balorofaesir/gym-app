@@ -1,11 +1,11 @@
-"use client"
+"use client";
 // pages/index.js
 
-import { useState } from 'react';
+import { useState } from "react";
 import Link from "next/link";
 
-
 export default function Home() {
+  const API_URL = process.env.API_KEY;
   const [met, setMet] = useState("");
   const [duration, setDuration] = useState("");
   const [weight, setWeight] = useState("");
@@ -14,11 +14,40 @@ export default function Home() {
   function calculateCaloriesBurned() {
     // Calculate the total calories burned (MET * weight * duration in hours)
 
-    const calories = met * weight * (duration/60);
-    console.log(weight)
+    const calories = met * weight * (duration / 60);
+    console.log(weight);
     // Return the calculated calories burned
     setCaloriesBurned(calories);
   }
+
+  const registerMyBurnedCalories = async () => {
+    const token = localStorage.getItem('token');
+    const payload = {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        myWeight: [
+          {
+            CaloriesBurned: caloriesBurned,
+            date: new Date()
+          },
+        ],
+      })
+    };
+    try {
+      const response = await fetch(`${API_URL}/api/users/add/myWeight`, payload);
+      const data = await response.json()
+      console.log(data)
+      // alert("Calories Burned Registered")
+    } catch (err) {
+      console.error(err);
+      alert("Calories Registration failed")
+    }
+  };
+
   return (
     <div>
       <header>
@@ -83,12 +112,12 @@ export default function Home() {
         </div>
 
         <button onClick={calculateCaloriesBurned}>Calculate</button>
-        <p>{caloriesBurned}</p>
 
         {caloriesBurned > 0 && (
           <div>
             <h2>Calories Burned:</h2>
             <p>{caloriesBurned} calories</p>
+            <button onClick={registerMyBurnedCalories}> Register Calories burned</button>
           </div>
         )}
       </div>
