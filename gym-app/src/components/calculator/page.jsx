@@ -1,5 +1,6 @@
 "use client";
 // pages/index.js
+import "./calculator.css";
 
 import { useState } from "react";
 
@@ -50,49 +51,46 @@ export default function Calculator() {
     }
   };
 
-  return(   <div>
-    <h1>Calorie Calculator</h1>
-    <div>
-      <label>
-        MET value:
+  return (
+    <section className='calculator--container'>
+      <h1>Calories Calculator</h1>
+      <div className='calculator--div'>
+        <label>MET value:</label>
         <input
           type='number'
           value={met}
           onChange={(e) => setMet(parseFloat(e.target.value))}
         />
-      </label>
-    </div>
+      </div>
 
-    <div>
-      <label>
-        Duration (minutes):
+      <div className='calculator--div'>
+        <label>Duration (minutes):</label>{" "}
         <input
           type='number'
           value={duration}
           onChange={(e) => setDuration(parseFloat(e.target.value))}
         />
-      </label>
-    </div>
-    <div>
-      <label>
-        Weight (Kg):
+      </div>
+      <div className='calculator--div'>
+        <label>Weight (Kg):</label>{" "}
         <input
           type='number'
           value={weight}
           onChange={(e) => setWeight(parseFloat(e.target.value))}
         />
-      </label>
-    </div>
-
-    <button onClick={calculateCaloriesBurned}>Calculate</button>
-    {caloriesBurned > 0 && (
-      <div>
-        <h2>Calories Burned:</h2>
-        <p>{caloriesBurned} calories</p>
-        <button onClick={registerMyBurnedCalories}>
-          {" "}
-          Register Calories burned
-        </button>
       </div>
-    )}
-  </div>)}
+
+      <button onClick={calculateCaloriesBurned}>Calculate</button>
+      {caloriesBurned > 0 && (
+        <div className='calculator--div2'>
+          <h1>Calories Burned:</h1>
+          <p>{caloriesBurned} calories</p>
+          <button className='button' onClick={registerMyBurnedCalories}>
+            {" "}
+            Register Calories burned
+          </button>
+        </div>
+      )}
+    </section>
+  );
+}

@@ -1,0 +1,27 @@
+:root {
+  --darkRed: rgb(142, 4, 35);
+  --regularRed: rgb(199, 19, 30);
+  --darkGrey: rgb(55, 48, 53);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgb(96, 82, 82);
+  background: linear-gradient(
+    90deg,
+    rgb(60, 50, 50) 20%,
+    hsl(0, 8%, 52%) 50%,
+    rgb(60, 50, 50) 80%
+  );
+}
+button {
+  font-weight: bold;
+background-color: whitesmoke;
+max-width: 200px;
+border-radius: 15px;
+align-self: center;
+margin: 5px;
+}
