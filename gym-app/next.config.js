@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+require('dotenv').config();
+
+const nextConfig = {
+    env: {
+        API_KEY: 'http://localhost:8080',
+      },  
+      css: ['./src/styles/globals.css'],
+}
 
 module.exports = nextConfig

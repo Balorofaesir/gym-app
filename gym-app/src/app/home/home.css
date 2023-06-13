@@ -1,0 +1,20 @@
+.home--main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  background: rgb(136, 0, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(136, 0, 0, 1) 4%,
+    rgba(253, 29, 29, 1) 85%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  width: 80%;
+}
+.home--main p {
+  color: white;
+}
+.home--main h1 {
+  color: white;
+}
