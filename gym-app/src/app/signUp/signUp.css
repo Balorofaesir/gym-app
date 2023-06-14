@@ -1,0 +1,12 @@
+.signUp--container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 5px;
+    padding: 10px;
+}
+.signUp--container label{
+    text-transform: capitalize;
+    color: white;
+}
