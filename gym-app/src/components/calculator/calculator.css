@@ -3,35 +3,35 @@
   flex-direction: column;
   width: 80%;
 }
-.calculator--container h1{
+.calculator--container h1 {
   color: whitesmoke;
-  align-self:center;
+  align-self: center;
 }
-.calculator--div{
+.calculator--div {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
-.calculator--div2{
+.calculator--div2 {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
-.calculator--div2 h1{
+.calculator--div2 h1 {
   padding-top: 20px;
-margin: 0;
+  margin: 0;
 }
-.calculator--div2
-p{
+.calculator--div2 p {
   background-color: white;
   color: black !important;
   font-weight: bold;
   padding: 0px 2% 0px;
-}.calculator--div label {
+}
+.calculator--div label {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -39,12 +39,29 @@ p{
   padding: 5px 5% 5px;
   width: 200px;
 }
+.calculator--div3 {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  color: white;
+}
+.calculator--div3 p {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: white;
+  padding: 5px 5% 5px;
+  width: 200px;
+  margin: 0px;
+}
+.calculator--div__select {
+  width: 169.6px;
+}
 
-.calculator--div input{
-    max-width: 180px;
+.calculator--div input {
+  max-width: 180px;
 }
 /* .button{
 
 } */
-
-
