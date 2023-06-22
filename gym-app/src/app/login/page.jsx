@@ -4,7 +4,6 @@ import "./login.css";
 
 const Login = () => {
   const API_URL = process.env.API_KEY;
-  console.log(API_URL);
   const router = useRouter();
 
   async function login(email, password) {
