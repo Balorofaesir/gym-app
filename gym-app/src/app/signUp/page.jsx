@@ -11,9 +11,10 @@ const SignUp = () => {
       body: JSON.stringify(userData),
     });
     if (res.ok) {
-      alert("Sign Up Successful")
-      window.location.href="/login";
-      return res.json()}
+      alert("Sign Up Successful");
+      window.location.href = "/login";
+      return res.json();
+    }
     throw new Error("Email already taken!");
   }
 
@@ -32,15 +33,40 @@ const SignUp = () => {
     <form className='signUp--container' onSubmit={handleSubmit}>
       <div>
         <label htmlFor='userName'> user name </label>
-        <input type='text' name='userName' id="userName" required />
+        <input type='text' name='userName' id='userName' required />
       </div>
       <div>
         <label htmlFor='email'>email </label>
-        <input type='email' name='email' id="email" required />
+        <input type='email' name='email' id='email' required />
       </div>
       <div>
         <label htmlFor='password'>password </label>
-        <input type='password' name='password' id="password" required />
+        <input type='password' name='password' id='password' required />
+      </div>
+      <div>
+        <label htmlFor='weight'>weight &#40; Kg &#41; </label>
+        <input
+          type='number'
+          name='weight'
+          id='weight'
+          min='0'
+          max='700'
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor='password'>height &#40; M &#41; </label>
+        <input
+          type='number'
+          name='height'
+          id='height'
+          min='0'
+          max='3'
+          placeholder='1.50'
+          step='0.01'
+          lang="en" 
+          required
+        />
       </div>
       <button type='submit'>Sign Up →</button>
     </form>

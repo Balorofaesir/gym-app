@@ -10,3 +10,6 @@
     text-transform: capitalize;
     color: white;
 }
+.signUp--container input{
+  min-width: 170px;
+}
