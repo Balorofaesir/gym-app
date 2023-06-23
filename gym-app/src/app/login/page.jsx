@@ -16,7 +16,7 @@ const Login = () => {
       const data = await res.json();
       window.localStorage.setItem("token", data.token);
       alert("login Successful")
-      router.push('/home');
+      router.push('/profile');
     } catch (error) {
       alert("Bad credentials please try again" )
       console.error("Bad Credentials");

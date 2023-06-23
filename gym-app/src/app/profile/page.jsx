@@ -81,6 +81,9 @@ function profile() {
         <h1>Profile Page</h1>
         <p>Username: {userData.userName}</p>
         <p>Email: {userData.email}</p>
+        <p>age: {userData.age}</p>
+        <p>height: {userData.height}</p>
+        <p>weight: {userData.weight}</p>
       </div>
       <form onSubmit={handleSubmit}>
       <input
@@ -101,6 +104,33 @@ function profile() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+           <div>
+        <label htmlFor='weight'>weight &#40; Kg &#41; </label>
+        <input
+          type='number'
+          name='weight'
+          id='weight'
+          min='0'
+          max='700'
+          onChange={(e) => setWeight(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor='password'>height &#40; M &#41; </label>
+        <input
+          type='number'
+          name='height'
+          id='height'
+          min='0'
+          max='3'
+          placeholder='1.50'
+          step='0.01'
+          lang="en" 
+          onChange={(e) => setHeight(e.target.value)}
+          required
+        />
+      </div>
       <button type="submit">Save</button>
     </form>
     </div>

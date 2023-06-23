@@ -2,8 +2,22 @@
 import Link from "next/link";
 import "./header.css";
 import { GiMuscleUp } from "react-icons/gi";
+import { useState, useEffect } from "react";
 
 export default function Header() {
+const [token, setToken] = useState("")
+
+useEffect(() => {
+  const tokenVariable = localStorage.getItem("token")
+  setToken(tokenVariable)
+}, [])
+
+  const handleRemoveLogin = () => {
+    window.localStorage.removeItem("token");
+    setToken("")
+  };
+console.log(token)
+
   return (
     <header className='header'>
       <section>
@@ -29,11 +43,29 @@ export default function Header() {
               <p>Login</p>
             </Link>
           </li>
+          <div>
+          {
+          token !== "" ? (
+        // Render content when the token value matches 'some_value'
+        <button
+        type='Button'
+        onClick={handleRemoveLogin}
+        className='header--nav__LogOut'
+      >
+        Log Out
+      </button>
+      ) : (
+        <p>Not user Logged</p>
+      )}
+        
+          </div>
         </ul>
       </nav>
-      <section className="header--section">
-        <p className="header--section__slogan">The smartest way to be stronger</p>
-        </section>
+      <section className='header--section'>
+        <p className='header--section__slogan'>
+          The smartest way to be stronger
+        </p>
+      </section>
     </header>
   );
 }
