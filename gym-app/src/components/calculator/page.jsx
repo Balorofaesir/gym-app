@@ -2,23 +2,45 @@
 // pages/index.js
 import "./calculator.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Calculator() {
   const API_URL = process.env.API_KEY;
+  const [data, setData] = useState(null);
   const [met, setMet] = useState("");
   const [duration, setDuration] = useState("");
   const [weight, setWeight] = useState("");
   const [caloriesBurned, setCaloriesBurned] = useState(0);
 
-  function calculateCaloriesBurned() {
+  const calculateCaloriesBurned = () => {
     // Calculate the total calories burned (MET * weight * duration in hours)
 
     const calories = met * weight * (duration / 60);
     console.log(weight);
     // Return the calculated calories burned
     setCaloriesBurned(calories);
-  }
+  };
+  const handleMetValue = (e) => {
+    setMet(e.target.value);
+    console.log(e.target.value);
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/activities`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const registerMyBurnedCalories = async () => {
     const token = localStorage.getItem("token");
@@ -54,6 +76,18 @@ export default function Calculator() {
   return (
     <section className='calculator--container'>
       <h1>Calories Calculator</h1>
+      <div className='calculator--div'>
+        <label>Met Value activity list:</label>
+        <select className={"calculator--div__select"} onChange={handleMetValue}>
+          {data &&
+            data.map((data) => (
+              <option value={data.met} key={data._id}>
+                {data.name}
+                {/* <p>{data.met} </p> */}
+              </option>
+            ))}
+        </select>
+      </div>
       <div className='calculator--div'>
         <label>MET value:</label>
         <input
