@@ -15,5 +15,5 @@ const nextConfig = {
   },
   css: ['./src/styles/globals.css'],
 };
-
+console.log("prosss", process.env.API_KEY)
 module.exports = nextConfig;

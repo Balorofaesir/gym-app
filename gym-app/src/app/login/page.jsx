@@ -7,7 +7,7 @@ const Login = () => {
   const router = useRouter();
 
   async function login(email, password) {
-    const res = await fetch(`${API_URL}/auth/local/login`, {
+    const res = await fetch(`${API_URL}auth/local/login`, {
       method: "POST",
       headers: new Headers({ "Content-Type": "application/json" }),
       body: JSON.stringify({ email, password }),
