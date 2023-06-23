@@ -5,9 +5,10 @@ import "./login.css";
 const Login = () => {
   const API_URL = process.env.API_KEY;
   const router = useRouter();
+  console.log("api_url",API_URL)
 
   async function login(email, password) {
-    const res = await fetch(`${API_URL}auth/local/login`, {
+    const res = await fetch(`${API_URL}/auth/local/login`, {
       method: "POST",
       headers: new Headers({ "Content-Type": "application/json" }),
       body: JSON.stringify({ email, password }),
