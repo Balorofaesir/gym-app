@@ -1,22 +1,26 @@
-'use client';
-
+"use client";
+import { useRouter } from 'next/navigation';
+import "./login.css";
 
 const Login = () => {
   const API_URL = process.env.API_KEY;
-  console.log(API_URL)
+  console.log(API_URL);
+  const router = useRouter();
 
   async function login(email, password) {
     const res = await fetch(`${API_URL}/auth/local/login`, {
-      method: 'POST',
-      headers: new Headers({ 'Content-Type': 'application/json' }),
-      body: JSON.stringify({ email, password })
+      method: "POST",
+      headers: new Headers({ "Content-Type": "application/json" }),
+      body: JSON.stringify({ email, password }),
     });
     try {
-      const data = await res.json()
-      console.log(data.token)
-      window.localStorage.setItem('token', data.token);
+      const data = await res.json();
+      window.localStorage.setItem("token", data.token);
+      alert("login Successful")
+      router.push('/home');
     } catch (error) {
-      console.error('Bad Credentials')
+      alert("Bad credentials please try again" )
+      console.error("Bad Credentials");
     }
   }
 
@@ -24,24 +28,24 @@ const Login = () => {
     e.preventDefault();
 
     const { email, password } = e.target;
-    console.log(
-       email.value, password.value
-    )
-    login(email.value, password.value)
+    login(email.value, password.value);
   };
 
-return(
-<main>
-  <section>
-   <form onSubmit={handleSubmit}>
-    <input type="email" name="email" />
-    <input type="password" name="password" />
-    <button type="submit" >
-            Login →
-          </button>
-   </form>
-  </section>
-</main>)
+  return (
+    <section>
+      <form className='login--container' onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor='email'>email</label>
+          <input type='email' name='email' id='email' />
+        </div>
+        <div>
+          <label htmlFor='password'>password</label>
+          <input type='password' name='password' id='password' />
+        </div>
+        <button type='submit'>Login →</button>
+      </form>
+    </section>
+  );
 };
 
 export default Login;
