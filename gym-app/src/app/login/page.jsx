@@ -1,31 +1,38 @@
 "use client";
 import "./login.css";
+import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { loginActionAsync } from '../../features/auth/authSlice';
-
+import { loginActionAsync } from "../../features/auth/authSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { email, password } = e.target;
-    console.log(email.value, password.value)
+    console.log(email.value, password.value);
     try {
       const action = loginActionAsync({
         email: email.value,
         password: password.value,
       });
       const { payload } = await dispatch(action);
-      console.log(payload)
-
       const { token } = payload;
-      window.localStorage.setItem('token', token);
-      window.localStorage.setItem('auth', JSON.stringify(payload));
-      window.localStorage.setItem('isAuth', true);
-    } catch (error) {console.error("login error")
-      
+
+      console.log(payload);
+      window.localStorage.setItem("token", token);
+      window.localStorage.setItem("auth", JSON.stringify(payload));
+      window.localStorage.setItem("isAuth", true);
+      alert("LOGIN OK")
+      router.push("/profile");
+    } catch (error) {
+      console.error("Login Error Bad Credentials");
+      window.localStorage.removeItem("token");
+      window.localStorage.removeItem("auth");
+      window.localStorage.removeItem("isAuth");
+      alert(`Bad Credentials`);
     }
   };
 
