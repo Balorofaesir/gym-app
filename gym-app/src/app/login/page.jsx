@@ -1,34 +1,32 @@
 "use client";
-import { useRouter } from 'next/navigation';
 import "./login.css";
+import { useDispatch } from "react-redux";
+import { loginActionAsync } from '../../features/auth/authSlice';
+
 
 const Login = () => {
-  const API_URL = process.env.API_KEY;
-  const router = useRouter();
-  console.log("api_url",API_URL)
-
-  async function login(email, password) {
-    const res = await fetch(`${API_URL}/auth/local/login`, {
-      method: "POST",
-      headers: new Headers({ "Content-Type": "application/json" }),
-      body: JSON.stringify({ email, password }),
-    });
-    try {
-      const data = await res.json();
-      window.localStorage.setItem("token", data.token);
-      alert("login Successful")
-      router.push('/profile');
-    } catch (error) {
-      alert("Bad credentials please try again" )
-      console.error("Bad Credentials");
-    }
-  }
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { email, password } = e.target;
-    login(email.value, password.value);
+    console.log(email.value, password.value)
+    try {
+      const action = loginActionAsync({
+        email: email.value,
+        password: password.value,
+      });
+      const { payload } = await dispatch(action);
+      console.log(payload)
+
+      const { token } = payload;
+      window.localStorage.setItem('token', token);
+      window.localStorage.setItem('auth', JSON.stringify(payload));
+      window.localStorage.setItem('isAuth', true);
+    } catch (error) {console.error("login error")
+      
+    }
   };
 
   return (
