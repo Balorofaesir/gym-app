@@ -1,8 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
+import { useRouter } from "next/navigation";
 
 function profile() {
+  const router = useRouter();
+
   const [userData, setUserData] = useState(null);
   const [userName, setUserName] = useState(null);
   const [age, setAge] = useState(null);
@@ -19,7 +22,7 @@ function profile() {
       const response = await fetch(`${API_URL}/api/users/edit/me`, {
         method: "PATCH",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -52,7 +55,7 @@ function profile() {
         const res = await fetch(`${API_URL}/api/users/me`, {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
         });
@@ -72,9 +75,15 @@ function profile() {
   }, []);
 
   if (!userData) {
+    setTimeout(() => {
+      const Auth = sessionStorage.getItem("isAuth");
+      if (Auth === null) {
+        alert("no user find, please login");
+        router.push("/login"); // Navigate to the desired page if no user data is found after 6 seconds
+      } else (console.log(Auth))
+    }, 5000);
     return <p>Loading user data...</p>;
   }
-
   return (
     <div>
       <div>
@@ -86,53 +95,53 @@ function profile() {
         <p>weight: {userData.weight}</p>
       </div>
       <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="userName"
-        value={userName}
-        onChange={(e) => setUserName(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="age"
-        value={age}
-        onChange={(e) => setAge(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-           <div>
-        <label htmlFor='weight'>weight &#40; Kg &#41; </label>
+        <input
+          type='text'
+          placeholder='userName'
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
         <input
           type='number'
-          name='weight'
-          id='weight'
-          min='0'
-          max='700'
-          onChange={(e) => setWeight(e.target.value)}
-          required
+          placeholder='age'
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
         />
-      </div>
-      <div>
-        <label htmlFor='password'>height &#40; M &#41; </label>
         <input
-          type='number'
-          name='height'
-          id='height'
-          min='0'
-          max='3'
-          placeholder='1.50'
-          step='0.01'
-          lang="en" 
-          onChange={(e) => setHeight(e.target.value)}
-          required
+          type='password'
+          placeholder='Password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
-      </div>
-      <button type="submit">Save</button>
-    </form>
+        <div>
+          <label htmlFor='weight'>weight &#40; Kg &#41; </label>
+          <input
+            type='number'
+            name='weight'
+            id='weight'
+            min='0'
+            max='700'
+            onChange={(e) => setWeight(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor='password'>height &#40; M &#41; </label>
+          <input
+            type='number'
+            name='height'
+            id='height'
+            min='0'
+            max='3'
+            placeholder='1.50'
+            step='0.01'
+            lang='en'
+            onChange={(e) => setHeight(e.target.value)}
+            required
+          />
+        </div>
+        <button type='submit'>Save</button>
+      </form>
     </div>
   );
 }

@@ -1,23 +1,29 @@
 "use client";
 import Link from "next/link";
 import "./header.css";
+import { useRouter } from "next/navigation";
 import { GiMuscleUp } from "react-icons/gi";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectAuth, setAuthUser } from "@src/features/auth/authSlice";
 
 export default function Header() {
-const [token, setToken] = useState("")
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { isAuth, token, profile } = useSelector(selectAuth);
 
-useEffect(() => {
-  const tokenVariable = localStorage.getItem("token")
-  setToken(tokenVariable)
-}, [])
+  useEffect(() => {
+    const storedAuth = sessionStorage.getItem("isAuth");
+    if (storedAuth) {
+      dispatch(setAuthUser({ isAuth: storedAuth }));
+    }
+  }, [dispatch]);
 
   const handleRemoveLogin = () => {
-    window.localStorage.removeItem("token");
-    setToken("")
+    dispatch(logout());
+    sessionStorage.clear();
+    router.push("/login");
   };
-console.log(token)
-
   return (
     <header className='header'>
       <section>
@@ -44,20 +50,18 @@ console.log(token)
             </Link>
           </li>
           <div>
-          {
-          token !== "" ? (
-        // Render content when the token value matches 'some_value'
-        <button
-        type='Button'
-        onClick={handleRemoveLogin}
-        className='header--nav__LogOut'
-      >
-        Log Out
-      </button>
-      ) : (
-        <p>Not user Logged</p>
-      )}
-        
+            {isAuth ? (
+              // Render content when the token value matches 'some_value'
+              <button
+                type='Button'
+                onClick={handleRemoveLogin}
+                className='header--nav__LogOut'
+              >
+                Log Out
+              </button>
+            ) : (
+              <p>Not user Logged</p>
+            )}
           </div>
         </ul>
       </nav>

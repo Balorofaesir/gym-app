@@ -22,16 +22,16 @@ const Login = () => {
       const { token } = payload;
 
       console.log(payload);
-      window.localStorage.setItem("token", token);
-      window.localStorage.setItem("auth", JSON.stringify(payload));
-      window.localStorage.setItem("isAuth", true);
+      window.sessionStorage.setItem("token", token);
+      window.sessionStorage.setItem("auth", JSON.stringify(payload));
+      window.sessionStorage.setItem("isAuth", true);
       alert("LOGIN OK")
       router.push("/profile");
     } catch (error) {
       console.error("Login Error Bad Credentials");
-      window.localStorage.removeItem("token");
-      window.localStorage.removeItem("auth");
-      window.localStorage.removeItem("isAuth");
+      window.sessionStorage.removeItem("token");
+      window.sessionStorage.removeItem("auth");
+      window.sessionStorage.removeItem("isAuth");
       alert(`Bad Credentials`);
     }
   };

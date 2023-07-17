@@ -22,7 +22,6 @@ export default function Calculator() {
   };
   const handleMetValue = (e) => {
     setMet(e.target.value);
-    console.log(e.target.value);
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +42,7 @@ export default function Calculator() {
   }, []);
 
   const registerMyBurnedCalories = async () => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const payload = {
       method: "PATCH",
       headers: {
