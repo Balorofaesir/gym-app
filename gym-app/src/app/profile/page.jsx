@@ -76,12 +76,12 @@ function profile() {
 
   if (!userData) {
     setTimeout(() => {
-      const Auth = sessionStorage.getItem("isAuth");
-      if (Auth === null) {
+      const Auth = typeof sessionStorage !== "undefined" && sessionStorage.getItem("isAuth");
+      if (Auth == undefined) {
         alert("no user find, please login");
         router.push("/login"); // Navigate to the desired page if no user data is found after 6 seconds
       } else (console.log(Auth))
-    }, 5000);
+    }, 4000);
     return <p>Loading user data...</p>;
   }
   return (
